@@ -1,0 +1,1104 @@
+*{
+
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+
+}
+
+html,
+body{
+
+    width:100%;
+    height:100%;
+
+    overflow:hidden;
+
+}
+
+body{
+
+    background:
+    radial-gradient(circle at 20% 20%, rgba(123,44,191,.18), transparent 35%),
+    radial-gradient(circle at 80% 30%, rgba(106,13,173,.15), transparent 30%),
+    radial-gradient(circle at 40% 75%, rgba(193,18,31,.10), transparent 35%),
+    radial-gradient(circle at 70% 85%, rgba(90,24,154,.12), transparent 30%),
+    #050816;
+
+    font-family:"Segoe UI",sans-serif;
+
+}
+
+#sky{
+
+    position:fixed;
+
+    inset:0;
+
+    width:100%;
+    height:100%;
+
+    display:block;
+
+}
+
+/*====================================
+REGALO
+====================================*/
+
+#gift{
+
+    position:absolute;
+
+    left:50%;
+    top:50%;
+
+    width:160px;
+    height:115px;
+
+    transform:
+    translate(-50%,-50%)
+    scale(.25);
+
+    opacity:0;
+
+    z-index:20;
+
+    cursor:pointer;
+
+    pointer-events:none;
+
+}
+
+/* aparece */
+
+#gift.show{
+
+    pointer-events:auto;
+
+    animation:
+
+    giftAppear .9s cubic-bezier(.22,1,.36,1) forwards,
+
+    giftFloat 3s ease-in-out infinite 1s;
+
+}
+
+@keyframes giftAppear{
+
+    from{
+
+        opacity:0;
+
+        transform:
+
+        translate(-50%,-50%)
+
+        scale(.25);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:
+
+        translate(-50%,-50%)
+
+        scale(1);
+
+    }
+
+}
+
+@keyframes giftFloat{
+
+    0%{
+
+        transform:
+
+        translate(-50%,-50%)
+
+        translateY(0);
+
+    }
+
+    50%{
+
+        transform:
+
+        translate(-50%,-50%)
+
+        translateY(-4px);
+
+    }
+
+    100%{
+
+        transform:
+
+        translate(-50%,-50%)
+
+        translateY(0);
+
+    }
+
+}
+
+.box{
+
+    position:absolute;
+
+    bottom:0;
+
+    width:160px;
+
+    height:90px;
+
+    background:linear-gradient(
+        145deg,
+        #D62828,
+        #6A0DAD
+    );
+
+    border-radius:0 0 8px 8px;
+
+}
+
+.ribbon-vertical{
+
+    position:absolute;
+
+    left:70px;
+
+    width:20px;
+
+    height:90px;
+
+    background:#E5B83C;
+
+}
+
+.lid{
+
+    position:absolute;
+
+    left:-5px;
+
+    bottom:90px;
+
+    width:170px;
+
+    height:25px;
+
+    background:linear-gradient(
+        145deg,
+        #E63946,
+        #7B2CBF
+    );
+
+    border-radius:5px;
+
+    transform-origin:left center;
+
+    transition:
+        transform .8s cubic-bezier(.22,1,.36,1),
+        opacity .5s;
+
+}
+
+.ribbon-horizontal{
+
+    position:absolute;
+
+    top:7px;
+
+    width:170px;
+
+    height:10px;
+
+    background:#E5B83C;
+
+}
+
+.bow{
+
+    position:absolute;
+
+    width:50px;
+
+    height:30px;
+
+    left:60px;
+
+    top:-18px;
+
+}
+
+.bow-center{
+
+    position:absolute;
+
+    width:16px;
+
+    height:16px;
+
+    border-radius:50%;
+
+    background:#E5B83C;
+
+    left:17px;
+
+    top:7px;
+
+}
+
+.bow-left{
+
+    position:absolute;
+
+    width:20px;
+
+    height:14px;
+
+    left:0;
+
+    top:8px;
+
+    background:#E5B83C;
+
+    border-radius:8px;
+
+    transform:rotate(-40deg);
+
+}
+
+.bow-right{
+
+    position:absolute;
+
+    width:20px;
+
+    height:14px;
+
+    right:0;
+
+    top:8px;
+
+    background:#E5B83C;
+
+    border-radius:8px;
+
+    transform:rotate(40deg);
+
+}
+
+#gift:hover{
+
+    filter:brightness(1.08);
+
+}
+
+/*====================================
+ABRIR REGALO
+====================================*/
+
+#gift.open .lid{
+
+    transform:
+
+    translate(115px,-30px)
+
+    rotate(25deg);
+
+    opacity:0;
+
+}
+
+#gift.fade{
+
+    animation:giftFade .8s forwards;
+
+    pointer-events:none;
+
+}
+
+@keyframes giftFade{
+
+    from{
+
+        opacity:1;
+
+        transform:
+        translate(-50%,-50%)
+        scale(1);
+
+    }
+
+    to{
+
+        opacity:0;
+
+        transform:
+        translate(-50%,-50%)
+        scale(.75);
+
+        visibility:hidden;
+
+    }
+
+}
+
+/*====================================
+GLOBOS
+====================================*/
+
+/*====================================
+GLOBOS
+====================================*/
+
+#balloons{
+
+    position:absolute;
+
+    inset:0;
+
+    pointer-events:none;
+
+    z-index:15;
+
+}
+
+.balloon{
+
+    position:absolute;
+
+    width:75px;
+    height:90px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:32px;
+
+    color:white;
+
+    cursor:pointer;
+
+    user-select:none;
+
+    opacity:0;
+
+    transform:translateY(0);
+
+    transition:
+    left 1s ease,
+    top 1s ease,
+    transform .3s ease,
+    opacity .4s;
+
+    pointer-events:auto;
+
+}
+
+.balloon:hover{
+
+    transform:scale(1.08);
+
+}
+
+.balloon.pop{
+
+    animation:pop .35s forwards;
+
+}
+
+@keyframes pop{
+
+    0%{
+
+        transform:scale(1);
+
+        opacity:1;
+
+    }
+
+    50%{
+
+        transform:scale(1.35);
+
+        opacity:.8;
+
+    }
+
+    100%{
+
+        transform:scale(0);
+
+        opacity:0;
+
+    }
+
+}
+
+@keyframes balloonFloat{
+
+    0%{
+
+        transform:translateY(0);
+
+    }
+
+    50%{
+
+        transform:translateY(-8px);
+
+    }
+
+    100%{
+
+        transform:translateY(0);
+
+    }
+
+}
+
+.balloon::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:2px;
+
+    height:70px;
+
+    background:white;
+
+    top:88px;
+
+}
+
+.letter{
+
+    background:#FFF8E7;
+
+    color:#2C2C2C;
+
+    padding:22px;
+
+    border-radius:12px;
+
+    white-space:pre-line;
+
+    line-height:1.3;
+
+    font-size:22px;
+
+    font-family:"Caveat",cursive;
+
+    max-height:65vh;
+
+    overflow-y:auto;
+
+    box-shadow:0 8px 30px rgba(0,0,0,.25);
+
+}
+
+/*====================================
+MODAL
+====================================*/
+
+#modal{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.65);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    opacity:0;
+
+    visibility:hidden;
+
+    transition:.35s;
+
+    z-index:200;
+
+}
+
+#modal.show{
+
+    opacity:1;
+
+    visibility:visible;
+
+}
+
+#modal-content{
+
+    position:relative;
+
+    width:min(700px,90vw);
+
+    max-height:85vh;
+
+    overflow-y:auto;
+
+    background:#161A2E;
+
+    border-radius:18px;
+
+    padding:35px;
+
+    color:white;
+
+    box-shadow:0 0 40px rgba(0,0,0,.45);
+
+}
+
+#close-modal{
+
+    position:sticky;
+
+    float:right;
+
+    top:0;
+
+    width:38px;
+
+    height:38px;
+
+    border:none;
+
+    border-radius:50%;
+
+    cursor:pointer;
+
+    background:#303A5A;
+
+    color:white;
+
+    font-size:18px;
+
+    z-index:1000;
+
+}
+
+#close-modal:hover{
+
+    background:#45537D;
+
+}
+
+#modal-body{
+
+    margin-top:20px;
+
+}
+
+.gallery{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    gap:18px;
+
+}
+
+.gallery img{
+
+    width:100%;
+
+    max-width:420px;
+
+    max-height:420px;
+
+    object-fit:contain;
+
+    border-radius:12px;
+
+    box-shadow:0 8px 25px rgba(0,0,0,.35);
+
+}
+
+#gallery-text{
+
+    text-align:center;
+
+    font-size:18px;
+
+    line-height:1.6;
+
+}
+
+.gallery-buttons{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:25px;
+
+}
+
+.gallery-buttons button{
+
+    width:42px;
+
+    height:42px;
+
+    border:none;
+
+    border-radius:50%;
+
+    cursor:pointer;
+
+    font-size:20px;
+
+}
+
+#gallery-counter{
+
+    font-weight:bold;
+
+}
+
+/*====================================
+CANCIÓN
+====================================*/
+
+.song-card{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    gap:10px;
+
+    margin:5px auto;
+
+    max-width:320px;
+
+}
+
+.song-card img{
+
+    width:100%;
+
+    max-width:320px;
+
+    aspect-ratio:16/9;
+
+    object-fit:cover;
+
+    border-radius:5px;
+
+    display:block;
+
+}
+
+.song-card a{
+
+    display:inline-block;
+
+    width:auto;
+
+    align-self:center;
+
+    text-decoration:none;
+
+    background:#7B2CBF;
+
+    color:white;
+
+    padding:10px 18px;
+
+    border-radius:8px;
+
+    font-weight:bold;
+
+    font-size:15px;
+
+    transition:.25s;
+
+}
+
+.song-card a:hover{
+
+    background:#5A189A;
+
+    transform:scale(1.05);
+
+}
+
+blockquote{
+
+    margin:20px 0;
+
+    padding-left:18px;
+
+    border-left:4px solid #7B2CBF;
+
+    font-style:italic;
+
+    line-height:1.4;
+
+}
+
+/*====================================
+FELIZ CUMPLEAÑOS
+====================================*/
+
+#birthday{
+
+    position:absolute;
+
+    left:50%;
+
+    top:50%;
+
+    transform:translate(-50%,-50%) scale(.8);
+
+    opacity:0;
+
+    transition:1s;
+
+    z-index:50;
+
+    pointer-events:none;
+
+    text-align:center;
+
+    width:900px;
+
+}
+
+#birthday.show{
+
+    opacity:1;
+
+    transform:translate(-50%,-50%) scale(1);
+
+}
+
+.feliz{
+
+    font-size:56px;
+
+    font-weight:900;
+
+    color:#FFD84D;
+
+    margin-bottom:15px;
+
+    text-shadow:
+        0 0 10px #b481b0,
+        0 0 20px #8d5388,
+        0 0 35px #722a6c,
+        0 0 60px #491545;
+
+}
+
+.cumple{
+
+    position:relative;
+
+    width:700px;
+
+    height:120px;
+
+    margin:0 auto;
+
+}
+
+.cumple span{
+
+    position:absolute;
+
+    left:50%;
+
+    bottom:0;
+
+    font-size:68px;
+
+    font-weight:900;
+
+    color:#FFD84D;
+
+    transform-origin:bottom center;
+
+    text-shadow:
+        0 0 10px #b481b0,
+        0 0 20px #8d5388,
+        0 0 35px #722a6c,
+        0 0 60px #491545;
+}
+
+.solecito{
+
+    margin-top:-5px;
+
+    font-size:56px;
+
+    font-weight:900;
+
+    color:#FFD84D;
+
+    text-shadow:
+        0 0 10px #b481b0,
+        0 0 20px #8d5388,
+        0 0 35px #722a6c,
+        0 0 60px #491545;
+
+}
+
+.cumple span:nth-child(1){transform:translateX(-270px) translateY(0px) rotate(-28deg);}
+.cumple span:nth-child(2){transform:translateX(-210px) translateY(-18px) rotate(-20deg);}
+.cumple span:nth-child(3){transform:translateX(-150px) translateY(-34px) rotate(-13deg);}
+.cumple span:nth-child(4){transform:translateX(-90px) translateY(-45px) rotate(-7deg);}
+.cumple span:nth-child(5){transform:translateX(-30px) translateY(-52px) rotate(-2deg);}
+.cumple span:nth-child(6){transform:translateX(30px) translateY(-52px) rotate(2deg);}
+.cumple span:nth-child(7){transform:translateX(90px) translateY(-45px) rotate(7deg);}
+.cumple span:nth-child(8){transform:translateX(150px) translateY(-34px) rotate(13deg);}
+.cumple span:nth-child(9){transform:translateX(210px) translateY(-18px) rotate(20deg);}
+.cumple span:nth-child(10){transform:translateX(270px) translateY(0px) rotate(28deg);}
+
+/*====================================
+PASTEL
+====================================*/
+
+
+#cake{
+
+    position:relative;
+
+    width:280px;
+
+    height:240px;
+
+    margin:45px auto 0;
+
+    pointer-events: none;
+
+}
+
+.cake-bottom{
+
+    position:absolute;
+
+    bottom:0;
+
+    left:20px;
+
+    width:240px;
+
+    height:90px;
+
+    background:linear-gradient(
+
+        #E9B16B,
+
+        #D38742
+
+    );
+
+    border-radius:18px;
+
+}
+
+.icing-bottom{
+
+    position:absolute;
+
+    left:20px;
+
+    bottom:75px;
+
+    width:240px;
+
+    height:24px;
+
+    background:white;
+
+    border-radius:20px;
+
+}
+
+.cake-top{
+
+    position:absolute;
+
+    bottom:80px;
+
+    left:55px;
+
+    width:170px;
+
+    height:70px;
+
+    background:linear-gradient(
+
+        #E9B16B,
+
+        #D38742
+
+    );
+
+    border-radius:18px;
+
+}
+
+.icing-top{
+
+    position:absolute;
+
+    left:55px;
+
+    bottom:135px;
+
+    width:170px;
+
+    height:22px;
+
+    background:white;
+
+    border-radius:20px;
+
+}
+
+.candle{
+
+    position:absolute;
+
+    width:12px;
+
+    height:48px;
+
+    background:white;
+
+    border-radius:5px;
+
+    cursor:pointer;
+
+}
+
+.c1{
+
+    left:82px;
+
+    top:18px;
+
+}
+
+.c2{
+
+    left:134px;
+
+    top:6px;
+
+}
+
+.c3{
+
+    left:186px;
+
+    top:18px;
+
+}
+
+#birthday.show #cake{
+
+    pointer-events:auto;
+
+}
+
+
+.flame{
+
+    position:absolute;
+
+    left:50%;
+
+    top:-18px;
+
+    transform:translateX(-50%);
+
+    width:14px;
+
+    height:18px;
+
+    background:#FFD84D;
+
+    border-radius:50% 50% 50% 50%;
+
+    box-shadow:
+
+        0 0 10px #FFD84D,
+
+        0 0 25px orange;
+
+}
+
+@keyframes flameFlicker{
+
+    0%{
+
+        transform:translateX(-50%) scale(1);
+
+        opacity:1;
+
+    }
+
+    50%{
+
+        transform:translateX(-50%) scale(.85);
+
+        opacity:.8;
+
+    }
+
+    100%{
+
+        transform:translateX(-50%) scale(1.05);
+
+        opacity:1;
+
+    }
+
+}
+
+.flame{
+
+    animation:flameFlicker .25s infinite alternate;
+
+}
+
+.flame.off{
+
+    animation:none;
+
+    opacity:0;
+
+    transform:translateX(-50%) scale(0);
+
+    transition:.3s;
+
+}

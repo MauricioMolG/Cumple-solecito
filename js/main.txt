@@ -1,0 +1,198 @@
+//====================================
+// CONFIGURACIÓN
+//====================================
+
+const canvas = document.getElementById("sky");
+const ctx = canvas.getContext("2d");
+const gift = document.getElementById("gift");
+let giftOpened = false;
+let currentStep = -1; // -1 = antes de regalo, 0-6 = pasos
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const colors = ["#FFFFFF", "#FFFFFF", "#FFFFFF", "#F8FBFF", "#FFFDF7", "#F2F7FF"];
+const skyStars = [];
+
+const constellationRadius = 3;
+const constellationColor = "#FFDE21";
+const constellationBrightness = 12;
+
+const cancerStars = [
+    { x: canvas.width * 0.73, y: canvas.height * 0.08 },
+    { x: canvas.width * 0.76, y: canvas.height * 0.14 },
+    { x: canvas.width * 0.78, y: canvas.height * 0.21 },
+    { x: canvas.width * 0.84, y: canvas.height * 0.25 },
+    { x: canvas.width * 0.75, y: canvas.height * 0.30 }
+];
+
+const cancerConnections = [[0, 1], [1, 2], [2, 3], [2, 4]];
+
+//====================================
+// FUNCIONES EXISTENTES (sin cambios)
+//====================================
+
+function drawStar(x, y, radius, color, brillo, sparkle) {
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.shadowBlur = brillo;
+    ctx.shadowColor = color;
+    ctx.arc(x, y, radius, 0, Math.PI * 2);
+    ctx.fill();
+    if(radius >= 2.5 && sparkle) drawSparkle(x, y, radius, color);
+}
+
+function drawSparkle(x, y, radius, color) {
+    let size = 4;
+    ctx.strokeStyle = color;
+    ctx.beginPath();
+    ctx.moveTo(x - size, y);
+    ctx.lineTo(x + size, y);
+    ctx.moveTo(x, y - size);
+    ctx.lineTo(x, y + size);
+    ctx.moveTo(x - size, y - size);
+    ctx.lineTo(x + size, y + size);
+    ctx.moveTo(x + size, y - size);
+    ctx.lineTo(x - size, y + size);
+    ctx.stroke();
+}
+
+function generateSky() {
+    for (let i = 0; i < 180; i++) {
+        let colorIndex = Math.floor(Math.random() * colors.length);
+        skyStars.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            radius: Math.random() * 2 + 1,
+            brillo: Math.random() * 8,
+            color: colors[colorIndex],
+            sparkle: Math.random() < 0.35,
+            sparkleTimer: Math.floor(Math.random() * 40)
+        });
+    }
+}
+
+function drawSky() {
+    for(let i = 0; i < skyStars.length; i++) {
+        let star = skyStars[i];
+        star.sparkleTimer--;
+        if(star.sparkleTimer <= 0) {
+            star.sparkle = Math.random() < 0.35;
+            star.sparkleTimer = 20 + Math.floor(Math.random() * 40);
+        }
+        drawStar(star.x, star.y, star.radius, star.color, star.brillo, star.sparkle);
+    }
+}
+
+function drawConstellation() {
+    for (let i = 0; i < cancerStars.length; i++) {
+        let x = cancerStars[i].x;
+        let y = cancerStars[i].y;
+        drawStar(x, y, constellationRadius, constellationColor, constellationBrightness, true);
+    }
+}
+
+let lineOpacity = 0;
+function drawConstellationLines() {
+    ctx.strokeStyle = `rgba(255,255,255,${lineOpacity})`;
+    ctx.lineWidth = 1;
+    for(let i = 0; i < cancerConnections.length; i++) {
+        let connection = cancerConnections[i];
+        let start = cancerStars[connection[0]];
+        let end = cancerStars[connection[1]];
+        ctx.beginPath();
+        ctx.moveTo(start.x, start.y);
+        ctx.lineTo(end.x, end.y);
+        ctx.stroke();
+    }
+}
+
+function drawScene() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawSky();
+    drawConstellation();
+    drawConstellationLines();
+}
+
+//====================================
+// NUEVAS FUNCIONES PARA LA SECUENCIA
+//====================================
+
+function openGift() {
+    if(giftOpened) return;
+    giftOpened = true;
+    gift.classList.add("open");
+    currentStep = 0;
+    
+    // Mostrar animación de apertura (step 0)
+    setTimeout(() => {
+        showStep(0);
+        // Siguiente paso después de la animación
+        setTimeout(() => nextStep(), 1500);
+    }, 600);
+}
+
+function nextStep() {
+    currentStep++;
+    if(currentStep > 6) return; // Fin de la secuencia
+    
+    showStep(currentStep);
+    
+    // Tiempo entre pasos (ajusta según necesites)
+    const delays = [1500, 1500, 1500, 1500, 1500, 1500, 2000];
+    setTimeout(() => nextStep(), delays[currentStep]);
+}
+
+function showStep(step) {
+    // Eliminar contenido anterior del gift
+    const giftContent = document.querySelector('.gift-content');
+    if(giftContent) giftContent.remove();
+    
+    const content = document.createElement('div');
+    content.className = 'gift-content';
+    content.style.cssText = 'position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;color:white;font-size:18px;z-index:10;';
+    
+    switch(step) {
+        case 0:
+            // Animación de apertura (ya está en CSS)
+            content.innerHTML = '<div style="font-size:24px;">🎁 Abriendo...</div>';
+            break;
+        case 1:
+            content.innerHTML = '<div style="font-size:40px;">🎈</div><div>Globos</div>';
+            break;
+        case 2:
+            content.innerHTML = '<div style="font-size:40px;">💌</div><div>Carta</div>';
+            break;
+        case 3:
+            content.innerHTML = '<div style="font-size:40px;">📸</div><div>Fotos</div>';
+            break;
+        case 4:
+            content.innerHTML = '<div style="font-size:40px;">🎵</div><div>Canción</div><button onclick="alert(\'🎵 Reproduciendo canción...\')" style="padding:10px 20px;margin-top:10px;background:#e0b141;border:none;border-radius:5px;cursor:pointer;color:white;">▶ Reproducir</button>';
+            break;
+        case 5:
+            content.innerHTML = '<div style="font-size:40px;">🎂</div><div>Pastel</div>';
+            break;
+        case 6:
+            content.innerHTML = '<div style="font-size:40px;">🎉</div><div style="font-size:24px;margin-top:10px;">¡Feliz Cumpleaños Solecito! 🎉</div>';
+            break;
+    }
+    
+    document.getElementById('gift').appendChild(content);
+}
+
+//====================================
+// PROGRAMA PRINCIPAL
+//====================================
+
+gift.addEventListener("click", openGift);
+generateSky();
+
+let animation = setInterval(function() {
+    lineOpacity += 0.005;
+    drawScene();
+    if(lineOpacity >= 1) {
+        lineOpacity = 1;
+        clearInterval(animation);
+        gift.style.opacity = "1";
+    }
+}, 30);

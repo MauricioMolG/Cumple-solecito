@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+    
+    <meta charset="UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Un pequeño regalo para Solecito ☀️</title>
+
+    <link rel= "stylesheet" href = "css/style.css">
+
+</head>
+
+<body>
+
+    <main>
+
+        <canvas id="sky"></canvas>
+
+        <div id="gift">
+            <div class="box"></div>
+
+            <div class="lid"></div>
+
+            <div class="ribbon-vertical"></div>
+
+            <div class="ribbon-horizontal"></div>
+
+            <div class="bow">
+                <div class="bow-left"></div>
+
+                <div class="bow-center"></div>
+
+                <div class="bow-right"></div>        
+   
+            </div>
+            
+            <div id="balloons"></div>
+
+        </div>
+
+    </main>   
+    
+    <script src="js/main.js"></script>    
+
+</body>
+
+</html>

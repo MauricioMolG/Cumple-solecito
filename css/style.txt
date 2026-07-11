@@ -1,0 +1,191 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,
+body{
+
+    width:100%;
+    height:100%;
+
+    overflow:hidden;
+
+    font-family:
+    "Segoe UI",
+    sans-serif;
+
+}
+
+body{
+
+    background:#050816;
+
+}
+#sky{
+    
+    position:fixed;
+    
+    top:0;
+    left:0;
+
+    width:100%;
+    height:100%;
+
+}
+
+#gift{
+    position:absolute;
+
+    top: 50%;
+    left: 50%;
+
+    width: 160px;
+    height: 115px;
+    transform: translate(-50%, -50%);
+
+    opacity: 0;
+    transition: transform .25s;
+    
+    cursor: pointer;
+   
+    .box{
+        position: absolute;
+        width: 160px;
+        height: 90px;
+
+        background: #D62828;
+        bottom: 0;
+    }
+
+    .lid{
+
+        position: absolute;
+
+        width: 170px;
+        height: 25px;
+
+        background: #C1121F;
+        
+        bottom: 90px;
+        left: -5px;
+
+        transform-origin: center bottom;
+        transition: transform .6s ease;
+
+    }
+    .ribbon-vertical{
+
+        position:absolute;
+
+        width:20px;
+        height:115px;
+
+        background:#e0b141;
+
+        left:70px;
+        top:0;
+
+    }
+    .bow{
+
+        position: absolute;
+
+        width: 50px;
+        height: 30px;
+
+        left: 55px;
+        top: -20px;
+    }
+    .bow-center{
+
+        position: absolute;
+
+        width: 16px;
+        height: 16px;
+
+        background: #e0b141;
+
+        border-radius: 50%;
+
+        left: 17px;
+        top: 7px;
+
+    }
+    .bow-left{
+
+        position: absolute;
+
+        width: 20px;
+        height: 14px;
+
+        background: #e0b141;
+
+        border-radius: 8px;
+        transform: rotate(-50deg);
+
+        left: 0;
+        top: 8px;
+
+    }
+    .bow-right{
+
+        position: absolute;
+
+        width: 20px;
+        height: 14px;
+
+        background: #e0b141;
+
+        border-radius: 8px;
+        transform: rotate(35deg);
+
+        right: 0;
+        top: 8px;
+
+    }
+}
+
+#gift:hover{
+
+    transform: translate(-50%, -53%) scale(1.05);
+}
+
+#gift.open .lid{
+
+    transform: translateY(-8px)
+    rotate(-120deg);
+
+}
+
+#balloons{
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%,-50%);
+
+    pointer-events: none;
+
+    .balloon{
+
+        width: 70px;
+        height: 90px;
+
+        background:#ff4d6d;
+        border-radius: 50% 50% 50% 50% / 45% 45% 55% 55%;
+    }
+
+}
+
+.gift-content {
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+    to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
